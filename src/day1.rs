@@ -1,4 +1,4 @@
-use sp_core::{hashing::sha2_256, hexdisplay::*, *, crypto::Derive};
+use sp_core::{crypto::Derive, hashing::sha2_256, hexdisplay::*, *};
 
 pub fn pair() -> sr25519::Pair {
     let (pair, mnemonic, raw_seed) = sr25519::Pair::generate_with_phrase(None);
@@ -45,15 +45,23 @@ pub fn derive() {
     let hard_derived = pair
         .derive(Some(DeriveJunction::hard(&b"foo"[..])).into_iter(), None)
         .unwrap();
-    println!("hard_derived: {:?}", HexDisplay::from(&hard_derived.0.public().0));
+    println!(
+        "hard_derived: {:?}",
+        HexDisplay::from(&hard_derived.0.public().0)
+    );
     let hard_derived1 = sr25519::Pair::from_string_with_seed(
         &format!("0x{}//foo", HexDisplay::from(&raw_seed)),
         None,
     )
     .unwrap();
-    println!("hard_derived1: {:?}", HexDisplay::from(&hard_derived1.0.public().0));
+    println!(
+        "hard_derived1: {:?}",
+        HexDisplay::from(&hard_derived1.0.public().0)
+    );
 
     let public = pair.public();
-    let soft_derived = public.derive(Some(DeriveJunction::soft(&b"foo"[..])).into_iter()).unwrap();
+    let soft_derived = public
+        .derive(Some(DeriveJunction::soft(&b"foo"[..])).into_iter())
+        .unwrap();
     println!("soft derived: {}", soft_derived);
 }

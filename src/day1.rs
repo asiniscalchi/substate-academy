@@ -59,9 +59,14 @@ pub fn derive() {
         HexDisplay::from(&hard_derived1.0.public().0)
     );
 
+    let data = "this is my message";
+    let signature = pair.sign(data.as_bytes());
     let public = pair.public();
     let soft_derived = public
         .derive(Some(DeriveJunction::soft(&b"foo"[..])).into_iter())
         .unwrap();
     println!("soft derived: {}", soft_derived);
+
+    let verified = sr25519::Pair::verify(&signature, data.as_bytes(), &soft_derived);
+    println!("verified with soft derived public key {}", verified); // should be false
 }

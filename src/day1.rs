@@ -68,5 +68,5 @@ pub fn derive() {
     println!("soft derived: {}", soft_derived);
 
     let verified = sr25519::Pair::verify(&signature, data.as_bytes(), &soft_derived);
-    println!("verified with soft derived public key {}", verified); // should be false
+    println!("verified with soft derived public key {}", verified); // should be false ????
 }

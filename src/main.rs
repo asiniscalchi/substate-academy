@@ -8,4 +8,5 @@ fn main() {
     day1::derive();
 
     day2::decrypt_ciphered_message();
+    day2::vrf::run();
 }

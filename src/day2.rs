@@ -1,6 +1,8 @@
 use hex_literal::hex;
 use std::str;
 
+pub mod vrf;
+
 pub fn decrypt_ciphered_message() {
     let data = [
     hex!("15481555260c011c535055565d671501024255554b00350d131d0a0a024c0014000a024501061b0105490c464312160b4f190b550e05490d03191b5746001c4c0b0f0b4b034f").to_vec(),
@@ -37,3 +39,5 @@ pub fn decrypt_ciphered_message() {
         }
     }
 }
+
+

@@ -33,7 +33,7 @@ impl Player {
         self.cards[idx].1
     }
 
-    fn reveal_choosen_card(&self) -> (u16, [u8; 97]) {
+    fn reveal_one(&self) -> (u16, [u8; 97]) {
         self.cards[0]
     }
 
@@ -57,7 +57,7 @@ mod tests {
     #[should_panic]
     fn ask_for_unexistent_card() {
          let p = Player::new();
-        let card = p.reveal_choosen_card();
+        let card = p.reveal_one();
         assert_eq!(card.0, 0);
     }
 

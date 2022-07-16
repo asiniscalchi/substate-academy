@@ -1,8 +1,5 @@
-
 use rand_core::OsRng;
-use schnorrkel::{
-    Keypair, PublicKey,
-};
+use schnorrkel::{Keypair, PublicKey};
 
 use super::vrfcore;
 
@@ -33,39 +30,40 @@ impl Player {
         self.cards[idx].1
     }
 
-    fn reveal_one(&self) -> (u16, [u8; 97]) {
-        self.cards[0]
+    fn reveal_one(&self) -> Option<(u16, [u8; 97])> {
+        if self.cards.len() == 0 {
+            return None;
+        }
+        Some(self.cards[0])
     }
 
-    fn reveal_all(&self) -> Vec<(u16, [u8; 97])> {
-        self.cards.clone()
+    fn count_cards(&self) -> usize {
+        self.cards.len()
     }
 }
 
-#[cfg(test)] 
+#[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn initial_draw() {
         let p = Player::new();
-        let cards = p.reveal_all();
-        assert_eq!(cards.len(), 0);
+        assert_eq!(p.count_cards(), 0);
     }
 
     #[test]
-    #[should_panic]
     fn ask_for_unexistent_card() {
-         let p = Player::new();
+        let p = Player::new();
         let card = p.reveal_one();
-        assert_eq!(card.0, 0);
+        assert_eq!(card, None);
     }
 
-    #[test] 
-    fn draw_creates_8_cards() {
+    #[test]
+    fn ask_for_a_card() {
         let mut p = Player::new();
-        p.draw(&[0u8; 32]);
-        let cards = p.reveal_all();
-        assert_eq!(cards.len(), 8);
+        p.draw(&[0; 32]);
+        let card = p.reveal_one();
+        assert!(card != None);
     }
 }

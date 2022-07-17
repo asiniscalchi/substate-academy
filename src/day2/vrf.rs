@@ -37,6 +37,10 @@ pub fn run() {
         players[i].1.draw(&VRF_seed);
     }
 
+    let counter = players[0].1.count_cards();
+    for i in 0..counter {
+        println!("[card {i}]: {}", players[0].1.reveal_one().unwrap().0);
+    }
     // ok time to reveal the cards
     // let winner = (players[0], None);
 
